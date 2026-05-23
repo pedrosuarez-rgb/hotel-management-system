@@ -1,7 +1,6 @@
 const Reserva = require('../models/Reserva');
 const Habitacion = require('../models/Habitacion');
 
-// Obtener todas las reservas
 exports.getAllReservas = async (req, res) => {
   try {
     const reservas = await Reserva.find()
@@ -13,7 +12,6 @@ exports.getAllReservas = async (req, res) => {
   }
 };
 
-// Obtener una reserva por ID
 exports.getReservaById = async (req, res) => {
   try {
     const reserva = await Reserva.findById(req.params.id)
@@ -28,12 +26,10 @@ exports.getReservaById = async (req, res) => {
   }
 };
 
-// Crear una nueva reserva
 exports.createReserva = async (req, res) => {
   try {
     const nuevaReserva = new Reserva(req.body);
     
-    // Calcular precio total
     const habitacion = await Habitacion.findById(req.body.habitacion);
     if (!habitacion) {
       return res.status(404).json({ mensaje: 'Habitación no encontrada' });
@@ -47,7 +43,6 @@ exports.createReserva = async (req, res) => {
     
     const reservaGuardada = await nuevaReserva.save();
     
-    // Actualizar estado de la habitación
     await Habitacion.findByIdAndUpdate(req.body.habitacion, { 
       estado: 'Ocupada' 
     });
@@ -58,7 +53,6 @@ exports.createReserva = async (req, res) => {
   }
 };
 
-// Actualizar una reserva
 exports.updateReserva = async (req, res) => {
   try {
     const reservaActualizada = await Reserva.findByIdAndUpdate(
@@ -75,7 +69,6 @@ exports.updateReserva = async (req, res) => {
   }
 };
 
-// Cancelar una reserva
 exports.cancelReserva = async (req, res) => {
   try {
     const reserva = await Reserva.findByIdAndUpdate(
@@ -88,7 +81,6 @@ exports.cancelReserva = async (req, res) => {
       return res.status(404).json({ mensaje: 'Reserva no encontrada' });
     }
     
-    // Liberar la habitación
     await Habitacion.findByIdAndUpdate(reserva.habitacion, { 
       estado: 'Disponible' 
     });
@@ -99,7 +91,6 @@ exports.cancelReserva = async (req, res) => {
   }
 };
 
-// Eliminar una reserva
 exports.deleteReserva = async (req, res) => {
   try {
     const reservaEliminada = await Reserva.findByIdAndDelete(req.params.id);

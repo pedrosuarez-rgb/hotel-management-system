@@ -1,6 +1,5 @@
 const Habitacion = require('../models/Habitacion');
 
-// Obtener todas las habitaciones
 exports.getAllHabitaciones = async (req, res) => {
   try {
     const habitaciones = await Habitacion.find();
@@ -10,7 +9,6 @@ exports.getAllHabitaciones = async (req, res) => {
   }
 };
 
-// Obtener habitaciones disponibles
 exports.getHabitacionesDisponibles = async (req, res) => {
   try {
     const habitaciones = await Habitacion.find({ estado: 'Disponible' });
@@ -20,7 +18,6 @@ exports.getHabitacionesDisponibles = async (req, res) => {
   }
 };
 
-// Obtener una habitación por ID
 exports.getHabitacionById = async (req, res) => {
   try {
     const habitacion = await Habitacion.findById(req.params.id);
@@ -33,7 +30,6 @@ exports.getHabitacionById = async (req, res) => {
   }
 };
 
-// Crear una nueva habitación
 exports.createHabitacion = async (req, res) => {
   try {
     const nuevaHabitacion = new Habitacion(req.body);
@@ -44,7 +40,6 @@ exports.createHabitacion = async (req, res) => {
   }
 };
 
-// Actualizar una habitación
 exports.updateHabitacion = async (req, res) => {
   try {
     const habitacionActualizada = await Habitacion.findByIdAndUpdate(
@@ -61,7 +56,6 @@ exports.updateHabitacion = async (req, res) => {
   }
 };
 
-// Eliminar una habitación
 exports.deleteHabitacion = async (req, res) => {
   try {
     const habitacionEliminada = await Habitacion.findByIdAndDelete(req.params.id);

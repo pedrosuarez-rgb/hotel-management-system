@@ -1,6 +1,5 @@
 const Cliente = require('../models/Cliente');
 
-// Obtener todos los clientes
 exports.getAllClientes = async (req, res) => {
   try {
     const clientes = await Cliente.find();
@@ -10,7 +9,6 @@ exports.getAllClientes = async (req, res) => {
   }
 };
 
-// Obtener un cliente por ID
 exports.getClienteById = async (req, res) => {
   try {
     const cliente = await Cliente.findById(req.params.id);
@@ -23,7 +21,6 @@ exports.getClienteById = async (req, res) => {
   }
 };
 
-// Crear un nuevo cliente
 exports.createCliente = async (req, res) => {
   try {
     const nuevoCliente = new Cliente(req.body);
@@ -34,7 +31,6 @@ exports.createCliente = async (req, res) => {
   }
 };
 
-// Actualizar un cliente
 exports.updateCliente = async (req, res) => {
   try {
     const clienteActualizado = await Cliente.findByIdAndUpdate(
@@ -51,7 +47,6 @@ exports.updateCliente = async (req, res) => {
   }
 };
 
-// Eliminar un cliente
 exports.deleteCliente = async (req, res) => {
   try {
     const clienteEliminado = await Cliente.findByIdAndDelete(req.params.id);

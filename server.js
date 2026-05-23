@@ -5,21 +5,17 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Conexión a MongoDB (SIN las opciones obsoletas)
 mongoose.connect('mongodb://localhost:27017/hotel_db')
   .then(() => console.log('✅ Conectado a MongoDB'))
   .catch(err => console.error('❌ Error de conexión:', err));
 
-// Rutas
 app.use('/api/clientes', require('./routes/clientes'));
 app.use('/api/habitaciones', require('./routes/habitaciones'));
 app.use('/api/reservas', require('./routes/reservas'));
 
-// Ruta principal
 app.get('/', (req, res) => {
   res.json({ 
     mensaje: 'API del Sistema de Gestión Hotelera',
